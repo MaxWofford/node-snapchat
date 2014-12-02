@@ -25,7 +25,7 @@
 
 var FormStream = require('multipart-form-stream'),
 crypto = require('crypto'),
-https = require('https'),
+http = require('http'),
 util = require('util'),
 spawn = require("child_process").spawn,
 uuid = require("uuid-v4"),
@@ -94,7 +94,7 @@ e.postCall = function postCall(endpoint, post_data, param1, param2, raw, cb) {
         }
     };
     return Q.promise(function(resolve, reject) {
-        var req = https.request(opts, function(res) {
+        var req = http.request(opts, function(res) {
             if(raw) {
                 res.pause();
                 return resolve(res);
@@ -217,7 +217,7 @@ e.upload = function upload(username, auth_token, stream, isVideo, cb) {
     form.addField('type', isVideo);
 
     return Q.promise(function(resolve,reject) {
-        var req = https.request({
+        var req = http.request({
             host: hostname,
             method: 'POST',
             path: '/ph/upload',
